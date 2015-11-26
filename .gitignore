@@ -1,0 +1,6 @@
+venv/*
+*.pyc
+*ipynb*
+.idea/*
+alternative.env
+**/*.log
