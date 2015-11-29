@@ -11,5 +11,6 @@ config = {
     "default_eta": 60,
     "default_price": 0,
     "thread_size": 32,
-    "eta_refresh_period": 2
+    "eta_refresh_period": 2,
+    "disable_refresh": False
 }

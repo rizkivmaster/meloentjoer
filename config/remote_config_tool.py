@@ -1,11 +1,10 @@
 import os
-
+from common.databases.ModelBase import ModelBase
 from sqlalchemy import Column, String
 
-from common.databases.ModelBase import ModelBase
 from common.databases.PostgreBase import PostgresAccessorBase
 from common.logging import logger_factory
-from local_config import config as __local_config
+from prod_config import config as __prod_config
 
 
 class ConfigRecord(ModelBase):
@@ -18,7 +17,7 @@ class ConfigRecord(ModelBase):
         self.value = value
 
 
-database_url = os.environ['MELOENTJOER_DATABASE_URL']
+database_url = os.environ['MELOENTJOER_REMOTE_DATABASE_URL']
 __config_session = PostgresAccessorBase(ConfigRecord, database_url)
 __logger = logger_factory.create_logger(__name__)
 
@@ -91,9 +90,9 @@ def set_float(key, value):
         __logger.error(e)
 
 
-def deploy_local_configurations():
+def deploy_production_configurations():
     __config_session.query(ConfigRecord).delete()
     __config_session.commit()
-    for key, value in __local_config.iteritems():
+    for key, value in __prod_config.iteritems():
         set_string(key, str(value))
     set_string('DATABASE_URL', database_url)
