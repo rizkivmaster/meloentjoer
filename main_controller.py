@@ -8,7 +8,7 @@ from flask import Blueprint, render_template, jsonify, request
 meloentjoer = Blueprint('meloentjoer', __name__)
 
 
-@meloentjoer.route('/retrieve/<string:word>', methods=['GET'])
+@meloentjoer.route('retrieve/<string:word>', methods=['GET'])
 def retrieve_route(word):
     word_list = main_component.autocomplete_service.get_words(word)
     return json.dumps(word_list)
@@ -23,13 +23,14 @@ def __get_next_bus(data, station):
     next_bus = None
     if len(data) > 0 and len(data[0].mode_list) > 0:
         first_bus_route = data[0].mode_list[0]
-        assert isinstance(first_bus_route, BuswayMode)
-        next_bus = main_component.search_service.get_next_bus(first_bus_route.heading_from, first_bus_route.heading_to,
-                                                              station)
+        if isinstance(first_bus_route, BuswayMode):
+            next_bus = main_component.search_service.get_next_bus(first_bus_route.heading_from,
+                                                                  first_bus_route.heading_to,
+                                                                  station)
     return next_bus
 
 
-@meloentjoer.route('/search', methods=['POST'])
+@meloentjoer.route('search', methods=['POST'])
 def search_route():
     json_return = request.get_json()
     source = json_return['source']
@@ -46,4 +47,4 @@ def index():
 
 
 meloentjoer_app = Flask(__name__)
-meloentjoer_app.register_blueprint(meloentjoer, url_prefix='/meloentjoer')
+meloentjoer_app.register_blueprint(meloentjoer, url_prefix='/')

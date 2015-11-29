@@ -49,9 +49,23 @@ def get_float(key):
         __logger.error(e)
 
 
+def get_bool(key):
+    try:
+        return bool(get_integer(key))
+    except Exception, e:
+        __logger.error(e)
+
+
 def set_integer(key, value):
     try:
         set_string(key, str(value))
+    except Exception, e:
+        __logger.error(e)
+
+
+def set_bool(key, value):
+    try:
+        set_integer(key, 1 if value else 0)
     except Exception, e:
         __logger.error(e)
 
@@ -79,4 +93,14 @@ def deploy_local_configurations():
     __config_session.query(ConfigRecord).delete()
     __config_session.commit()
     for key, value in __local_config.iteritems():
-        set_string(key, value)
+        set_string(key, str(value))
+    set_string('DATABASE_URL', database_url)
+
+
+def deploy_production_configurations(remote_database_url):
+    __config_session = PostgresAccessorBase(ConfigRecord, remote_database_url)
+    __config_session.query(ConfigRecord).delete()
+    __config_session.commit()
+    for key, value in __prod_config.iteritems():
+        set_string(key, str(value))
+    set_string('DATABASE_URL', remote_database_url)

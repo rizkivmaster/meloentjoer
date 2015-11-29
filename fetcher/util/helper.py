@@ -55,8 +55,8 @@ def multi_href_parser(element):
     items = element.find_all('a')
     for item in items:
         if item.name == 'a':
-            if item.has_attr('class') and item['class'][0] == 'image':
-                buffers.append(item['title'])
+            if item.has_attr('class') and item['class'][0] == 'image' and item.has_attr('title'):
+                    buffers.append(item['title'])
             else:
                 for a_buffer in buffers:
                     return_lists.add(a_buffer + '_' + str(item.getText()))
@@ -84,7 +84,7 @@ def get_busway_routes(callback=None):
     """
     routes_list = []
     try:
-        scrapper = scrap("https://en.wikipedia.org/wiki/TransJakarta_Corridors")
+        scrapper = scrap("https://en.wikipedia.org/w/index.php?title=TransJakarta_Corridors&oldid=679760031")
         main_content = scrapper.find('div', attrs={'id': 'mw-content-text'})
         tables = main_content.find_all('table', {'class': 'wikitable'})
         for table in tables:
@@ -135,7 +135,7 @@ def get_walk_routes():
     """
     walk_routes_list = []
     try:
-        scrapper = scrap("https://en.wikipedia.org/wiki/TransJakarta_Corridors")
+        scrapper = scrap("https://en.wikipedia.org/w/index.php?title=TransJakarta_Corridors&oldid=679760031")
         main_content = scrapper.find('div', attrs={'id': 'mw-content-text'})
         tables = main_content.find_all('table', {'class': 'wikitable'})
         for table in tables:
@@ -173,7 +173,7 @@ def get_busway_transfers():
     """
     busway_transfers_list = []
     try:
-        scrapper = scrap("https://en.wikipedia.org/wiki/TransJakarta_Corridors")
+        scrapper = scrap("https://en.wikipedia.org/w/index.php?title=TransJakarta_Corridors&oldid=679760031")
         main_content = scrapper.find('div', attrs={'id': 'mw-content-text'})
         tables = main_content.find_all('table', {'class': 'wikitable'})
         filter_set = set()
