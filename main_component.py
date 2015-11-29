@@ -12,12 +12,12 @@ __logger = logger_factory.create_logger(__name__)
 def start():
     # warming up
     __logger.info('System is warming up')
-    bus_estimation_accessor.start()
-    busway_info_fetcher.start()
-    train_info_fetcher.start()
-    walk_info_fetcher.start()
-    busway_transfer_fetcher.start()
-    busway_track_fetcher.start()
+    # bus_estimation_accessor.start()
+    # busway_info_fetcher.start()
+    # train_info_fetcher.start()
+    # walk_info_fetcher.start()
+    # busway_transfer_fetcher.start()
+    # busway_track_fetcher.start()
     autocomplete_service.start()
     __logger.info('All components have been started')
 

@@ -4,3 +4,4 @@ venv/*
 .idea/*
 alternative.env
 **/*.log
+production_deploy.py

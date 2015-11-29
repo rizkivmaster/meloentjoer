@@ -26,11 +26,11 @@ def get_busway_transfer_refresh_period():
 
 
 def get_train_info_refresh_period():
-    return 10
+    return config_tool.get_integer("train_info_refresh_period")
 
 
 def get_walk_route_refresh_period():
-    return 10
+    return config_tool.get_integer("walk_route_refresh_period")
 
 
 def get_autocomplete_refresh_period():
@@ -38,7 +38,7 @@ def get_autocomplete_refresh_period():
     :rtype int
     :return:
     """
-    return 2
+    return config_tool.get_integer("autocomplete_refresh_period")
 
 
 def get_default_eta():
@@ -46,7 +46,7 @@ def get_default_eta():
     :rtype int
     :return:
     """
-    return 60
+    return config_tool.get_integer("default_eta")
 
 
 def get_default_price():
@@ -54,7 +54,7 @@ def get_default_price():
     :rtype int
     :return:
     """
-    return 0
+    return config_tool.get_integer("default_price")
 
 
 def get_thread_size():
@@ -62,7 +62,7 @@ def get_thread_size():
     :rtype int
     :return:
     """
-    return 32
+    return config_tool.get_integer("thread_size")
 
 
 def get_eta_refresh_period():
@@ -70,4 +70,4 @@ def get_eta_refresh_period():
     :rtype int
     :return:
     """
-    return 2
+    return config_tool.get_integer("eta_refresh_period")
